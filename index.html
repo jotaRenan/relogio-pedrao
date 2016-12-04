@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>CSS3/jQuery Clock demo</title>
+    
+    <script type="text/javascript" src="jquery-1.2.6.min.js"></script>
+    
+    <style type="text/css">
+        * {
+        	margin: 0;
+        	padding: 0;
+        }
+        
+        body {
+          background: url(images/deBoas.JPG) repeat ;
+          background-size: 50%;
+        }
+        #clock {
+        	position: relative;
+        	width: 600px;
+        	height: 600px;
+        	margin: 20px auto 0 auto;
+        	background: url(images/clockface.png);
+        	list-style: none;
+        	}
+         #min, #hour {
+        	position: absolute;
+        	width: 70px;
+        	height: 600px;
+        	top: 0px;
+        	left: 285px;
+        	}
+        
+           
+        #min {
+        	background: url(images/minhand.png);
+        	z-index: 2;
+           	}
+           
+        #hour {
+        	background: url(images/hourhand.png);
+        	z-index: 1;
+           	}
+           	
+        p {
+            text-align: center; 
+            padding: 10px 0 0 0;
+            }
+        .relogio {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          min-height: 100vh;
+          align-items: center;
+        }
+        #mensagem {
+          color:white;
+          font-weight: bolder;
+          font-size: 60pt;
+        }
+        @-webkit-keyframes demo {
+            0% {
+                color: Yellow;
+                opacity:1;
+            }
+            22% {
+                color: Yellow;
+            }
+            77% {
+               color: Red;
+            }
+            100% {
+                color: #777;
+            }
+        }
+        .flashes {
+            -webkit-animation-name: demo;
+            -webkit-animation-duration: 500ms;
+            -webkit-animation-iteration-count: infinite;
+            -webkit-animation-timing-function: ease-in-out;
+        }  
+
+    </style>
+    
+    <script type="text/javascript">
+    
+        $(document).ready(function() {
+                   
+         
+              setInterval( function() {
+              var hours = new Date().getHours();
+              if (hours === 3) {
+                var bg = "url(images/IMG_3017.JPG) no-repeat center center";
+                $("body").css({ "background" : bg , "background-size" : "cover"});
+                let msg = document.querySelector('#mensagem');
+                msg.textContent = "HORA DE FICAR PUTO NESSA PORRA!!!";
+                if (!msg.classList.contains('flashes')) {
+                  msg.classList.add('flashes');
+                }
+              }
+              var mins = new Date().getMinutes();
+              var hdegree = hours * 30 + (mins / 2);
+              var hrotate = "rotate(" + hdegree + "deg)";
+              
+              $("#hour").css({"-moz-transform" : hrotate, "-webkit-transform" : hrotate});
+                  
+              }, 1000 );
+        
+        
+              setInterval( function() {
+              var mins = new Date().getMinutes();
+              var mdegree = mins * 6;
+              var mrotate = "rotate(" + mdegree + "deg)";
+              
+              $("#min").css({"-moz-transform" : mrotate, "-webkit-transform" : mrotate});
+                  
+              }, 1000 );
+         
+        }); 
+    
+    </script>
+
+</head>
+
+<body>
+  <div class="relogio">
+  	<ul id="clock">	
+  	   	<li id="sec"></li>
+  	   	<li id="hour"></li>
+  		<li id="min"></li>
+  	</ul>
+    <h1 id="mensagem">CALMA O RIVOTRIL TA AGUENTANDO</h1>
+  </div>
+  	
+</body>
+	
+</html>
+
